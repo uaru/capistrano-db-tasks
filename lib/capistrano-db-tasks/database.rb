@@ -25,6 +25,11 @@ module Database
         credential_params << " -h #{@config['host']} " if @config['host']
         credential_params << " -S #{@config['socket']} " if @config['socket']
         credential_params << " -P #{@config['port']} " if @config['port']
+        if @config['sslkey'] && @config['sslcert'] && @config['sslca']
+            credential_params << " --ssl-ca=#{@config['sslca']} "
+            credential_params << " --ssl-cert=#{@config['sslcert']} "
+            credential_params << " --ssl-key=#{@config['sslkey']} "
+        end    
       elsif postgresql?
         credential_params << " -U #{username} " if username
         credential_params << " -h #{@config['host']} " if @config['host']
